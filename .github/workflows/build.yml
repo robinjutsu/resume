@@ -1,0 +1,28 @@
+name: build-latex
+on: [push]
+permissions:
+  contents: write
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: ./main
+          root_file: resume.tex
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: main/resume.pdf
+          if-no-files-found: error
+      - name: push build files
+        run: |
+          sudo apt-get update && sudo apt-get install poppler-utils
+          mv main/resume.pdf out/resume.pdf
+          pdftoppm -png -f 1 -l 1 -r 450 out/resume.pdf out/resumeimg
+          git config --global user.name "githubAction"
+          git config --global user.email "actions@users.noreply.github.com"
+          git add out/resume.pdf out/resumeimg-1.png
+          git commit -m "updated at $(date +"%D %T")"          
+          git push
