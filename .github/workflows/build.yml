@@ -24,5 +24,5 @@ jobs:
           git config --global user.name "githubAction"
           git config --global user.email "actions@users.noreply.github.com"
           git add out/resume.pdf out/resumeimg-1.png
-          git commit -m "updated at $(date +"%D %T")"          
+          git commit -m "updated at $(date +"%D %T") UTC"          
           git push
