@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: xu-cheng/latex-action@v2
+      - uses: xu-cheng/latex-action@v3
         with:
           working_directory: ./main
           root_file: resume.tex
